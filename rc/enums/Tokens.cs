@@ -4,7 +4,7 @@ namespace rc.enums
     {
         // Variables
         Variable_Type,
-        Variable_Indentifier,
+        Variable_Identifier,
         Variable_Value,
 
         // Keywords
@@ -16,10 +16,6 @@ namespace rc.enums
         Keyword_Break,
         Keyword_Continue,
         Keyword_Function,
-        Keyword_Var,
-        Keyword_True,
-        Keyword_False,
-        Keyword_Null,
         Keyword_Undefined,
 
         // Operators
@@ -57,6 +53,12 @@ namespace rc.enums
         Other_Whitespace,
         Other_Newline,
         Other_Comment,
-        Other_Unknown
+        Other_Unknown,
+
+        // Types
+        Type_Number,
+        Type_String,
+        Type_Boolean,
+        Type_Null,
     }
 }
