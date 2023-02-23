@@ -61,6 +61,9 @@ namespace rc.enums
         Type_Boolean,
         Type_Null,
 
+        // Function
+        Function_Identifier,
+
         // End of file
         EOF
     }

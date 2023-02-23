@@ -15,9 +15,9 @@ namespace rc.core
     }
     public class Lexer
     {
-        private readonly string _input;
+        private string _input;
         private KeyValuePair<string, TokenType> _lastToken;
-        private readonly List<Token> _tokens;
+        private List<Token> _tokens;
         private int _position;
 
         private static readonly Dictionary<string, TokenType> TokenTypes = new Dictionary<string, TokenType>
@@ -74,6 +74,22 @@ namespace rc.core
             {"/*", TokenType.Other_Comment},
             {"*/", TokenType.Other_Comment}
         };
+
+        public void setInput(string input)
+        {
+            _input = input;
+            _tokens = new List<Token>();
+            _position = 0;
+        }
+
+        public Lexer()
+        {
+            _input = "";
+            _tokens = new List<Token>();
+            _position = 0;
+
+            Console.WriteLine("Lexer created");
+        }
 
         public Lexer(string input)
         {
@@ -162,6 +178,20 @@ namespace rc.core
                         _tokens.Add(new Token(TokenType.Type_Number, number));
                         _lastToken = new KeyValuePair<string, TokenType>(number, TokenType.Type_Number);
                     }
+                    // Functions call
+                    else if (char.IsLetter(_input[_position]))
+                    {
+                        string identifier = "";
+                        while (_position < _input.Length && char.IsLetterOrDigit(_input[_position]) && _input[_position] != '(')
+                        {
+                            identifier += _input[_position];
+
+                            _position++;
+                        }
+
+                        _tokens.Add(new Token(TokenType.Function_Identifier, identifier));
+                        _lastToken = new KeyValuePair<string, TokenType>(identifier, TokenType.Function_Identifier);
+                    }
                     // Unknown token
                     else
                     {
@@ -179,11 +209,22 @@ namespace rc.core
 
         private Token? GetNextToken()
         {
-            while (_position < _input.Length && char.IsWhiteSpace(_input[_position]))
+            // Merge All Whitespace into one token
+            while (_position < _input.Length && char.IsWhiteSpace(_input[_position]) && _lastToken.Value == TokenType.Other_Whitespace)
+            {
                 _position++;
+            }
 
+            if (_position < _input.Length && char.IsWhiteSpace(_input[_position]) && _lastToken.Value != TokenType.Other_Whitespace)
+            {
+                _lastToken = new KeyValuePair<string, TokenType>(" ", TokenType.Other_Whitespace);
+                return new Token(TokenType.Other_Whitespace, " ");
+            }
+
+            // Check if we are at the end of the input
             if (_position >= _input.Length)
-                return null;
+                return new Token(TokenType.EOF, "END OF FILE");
+
 
             foreach (var tokenType in TokenTypes)
             {

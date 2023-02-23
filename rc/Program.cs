@@ -1,5 +1,4 @@
-﻿using System;
-using rc.core;
+﻿using rc.core;
 
 namespace rc
 {
@@ -7,25 +6,11 @@ namespace rc
     {
         static void Main(string[] args)
         {
-            string input = "this.a = 1.23; // test \\n temp.hello = 1.23; // test \\n temp.i = \"Hello\"";
+            // string input = "this.a = 1.23; // test \\n temp.hello = 1.23; // test \\n temp.i = \"Hello\"";
 
-            var lexer = new Lexer(input);
+            var interpreter = new Interpreter();
 
-            Console.WriteLine("Input: " + input + "\n");
-
-            try
-            {
-                var tokens = lexer.Tokenize();
-                foreach (var token in tokens)
-                {
-                    Console.WriteLine(token.Type + " " + token.Value);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
+            Console.ReadKey();
         }
     }
 }
