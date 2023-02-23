@@ -1,18 +1,62 @@
 namespace rc.enums
 {
-    public enum Tokens
+    public enum TokenType
     {
-        EOF,                // fim do arquivo
-        Identificador,      // identificador (nome de variável, função, etc)
-        Inteiro,            // número inteiro
-        Float,              // número decimal
-        OperadorAritmetico, // operador aritmético (+, -, *, /)
-        OperadorRelacional, // operador relacional (>, <, >=, <=, ==, !=)
-        OperadorLogico,     // operador lógico (&&, ||, !)
-        Delimitador,        // delimitador (, ;, {, })
-        PalavraChave,       // palavra-chave (if, while, for, etc)
-        String,             // string ("texto")
-        Comentario,         // comentário (//, /* */)
-        Funcao,             // função (print, read, etc)
+        // Variables
+        Variable_Type,
+        Variable_Indentifier,
+        Variable_Value,
+
+        // Keywords
+        Keyword_If,
+        Keyword_Else,
+        Keyword_While,
+        Keyword_For,
+        Keyword_Return,
+        Keyword_Break,
+        Keyword_Continue,
+        Keyword_Function,
+        Keyword_Var,
+        Keyword_True,
+        Keyword_False,
+        Keyword_Null,
+        Keyword_Undefined,
+
+        // Operators
+        Operator_Plus,
+        Operator_Minus,
+        Operator_Multiply,
+        Operator_Divide,
+        Operator_Modulus,
+        Operator_Assignment,
+        Operator_Equal,
+        Operator_NotEqual,
+        Operator_LessThan,
+        Operator_GreaterThan,
+        Operator_LessThanOrEqual,
+        Operator_GreaterThanOrEqual,
+        Operator_And,
+        Operator_Or,
+        Operator_Not,
+
+        // Punctuation
+        Punctuation_OpenParenthesis,
+        Punctuation_CloseParenthesis,
+        Punctuation_OpenCurlyBrace,
+        Punctuation_CloseCurlyBrace,
+        Punctuation_OpenSquareBracket,
+        Punctuation_CloseSquareBracket,
+        Punctuation_Comma,
+        Punctuation_Semicolon,
+
+        // String
+        String_DoubleQuote,
+        String_SingleQuote,
+
+        // Other
+        Other_Whitespace,
+        Other_Newline,
+        Other_Comment,
+        Other_Unknown
     }
 }
