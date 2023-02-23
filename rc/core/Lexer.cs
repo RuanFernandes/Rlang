@@ -64,7 +64,7 @@ namespace rc.core
             {".", TokenType.Punctuation_Dot},
 
             {"\"", TokenType.String_DoubleQuote},
-            {"'", TokenType.String_SingleQuote},
+            // {"'", TokenType.String_SingleQuote}, Disabled for now
 
             {" ", TokenType.Other_Whitespace},
             {"\\t", TokenType.Other_Whitespace},
@@ -110,7 +110,6 @@ namespace rc.core
                     // Read Strings
                     if (token.Type == TokenType.String_DoubleQuote)
                     {
-                        _tokens.Add(token);
                         string str = "";
                         while (_position < _input.Length && _input[_position] != '"')
                         {
@@ -123,7 +122,7 @@ namespace rc.core
                         _lastToken = new KeyValuePair<string, TokenType>(str, TokenType.Type_String);
                     }
                     // Skip comments
-                    if (token.Type == TokenType.Other_Comment)
+                    else if (token.Type == TokenType.Other_Comment)
                     {
                         if (token.Value == "//")
                         {
