@@ -16,7 +16,6 @@ namespace rc.enums
         Keyword_Break,
         Keyword_Continue,
         Keyword_Function,
-        Keyword_Undefined,
 
         // Operators
         Operator_Plus,

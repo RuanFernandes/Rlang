@@ -39,7 +39,6 @@ namespace rc.core
             {"true", TokenType.Type_Boolean},
             {"false", TokenType.Type_Boolean},
             {"null", TokenType.Type_Null},
-            {"undefined", TokenType.Keyword_Undefined},
 
             {"+", TokenType.Operator_Plus},
             {"-", TokenType.Operator_Minus},
@@ -112,7 +111,10 @@ namespace rc.core
                         _lastToken = new KeyValuePair<string, TokenType>(varIdentifier, TokenType.Variable_Identifier);
                     }
                     // Find Numbers
-                    else if (char.IsDigit(_input[_position]))
+                    else if (char.IsDigit(_input[_position])
+                                                            && _lastToken.Value != TokenType.Type_Boolean
+                                                            && _lastToken.Value != TokenType.Type_Null
+                                                            && _lastToken.Value != TokenType.Type_Number)
                     {
                         string number = "";
                         while (_position < _input.Length && char.IsDigit(_input[_position]))
@@ -128,7 +130,7 @@ namespace rc.core
                     // Unknown token
                     else
                     {
-                        throw new Exception("Unknown token" + _input.Substring(_position) + " at position " + _position + " in input " + _input + "!");
+                        throw new Exception("Unknown token '" + _input.Substring(_position) + "' at position " + _position + " in input " + _input);
                     }
 
                 }

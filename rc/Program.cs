@@ -7,18 +7,23 @@ namespace rc
     {
         static void Main(string[] args)
         {
-            string input = "this.a = 123;";
+            string input = "this.a = 1 23;";
 
             var lexer = new Lexer(input);
 
-            var tokens = lexer.Tokenize();
-
-            foreach (var token in tokens)
+            try
             {
-                Console.WriteLine(token.Type + " " + token.Value);
+                var tokens = lexer.Tokenize();
+                foreach (var token in tokens)
+                {
+                    Console.WriteLine(token.Type + " " + token.Value);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
 
-            Console.ReadLine();
         }
     }
 }
