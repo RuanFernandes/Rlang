@@ -1,8 +1,6 @@
-using rc.core;
-
 namespace rc.core.builtinfunctions
 {
-    public class Print : Function
+    public class print : Function
     {
         public override object? Execute(string[] args)
         {
@@ -12,7 +10,7 @@ namespace rc.core.builtinfunctions
             return null;
         }
 
-        public Print(string[] argvs) : base("print", "Prints the arguments to the console", argvs, new string[] { "print(Hello World)", "prints Hello World!" })
+        public print(string[] argvs) : base("print", "Prints the arguments to the console", argvs, new string[] { "print(Hello World)", "prints Hello World!" })
         {
         }
     }
