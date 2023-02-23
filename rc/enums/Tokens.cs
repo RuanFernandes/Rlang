@@ -59,6 +59,9 @@ namespace rc.enums
         Type_Number,
         Type_String,
         Type_Boolean,
-        Type_Null
+        Type_Null,
+
+        // End of file
+        EOF
     }
 }

@@ -72,9 +72,6 @@ namespace rc.core
             {"\\t", TokenType.Other_Whitespace},
             {"\\r", TokenType.Other_Whitespace},
             {"\\n", TokenType.Other_Newline},
-            {"\t", TokenType.Other_Whitespace},
-            {"\r", TokenType.Other_Whitespace},
-            {"\n", TokenType.Other_Newline},
             {"//", TokenType.Other_Comment},
             {"/*", TokenType.Other_Comment},
             {"*/", TokenType.Other_Comment}
@@ -94,6 +91,21 @@ namespace rc.core
                 var token = GetNextToken();
                 if (token != null)
                 {
+                    // Read Strings
+                    if (token.Type == TokenType.String_DoubleQuote)
+                    {
+                        _tokens.Add(token);
+                        string str = "";
+                        while (_position < _input.Length && _input[_position] != '"')
+                        {
+                            str += _input[_position];
+                            _position++;
+                        }
+
+                        _position++;
+                        _tokens.Add(new Token(TokenType.Type_String, str));
+                        _lastToken = new KeyValuePair<string, TokenType>(str, TokenType.Type_String);
+                    }
                     // Skip comments
                     if (token.Type == TokenType.Other_Comment)
                     {
@@ -101,9 +113,7 @@ namespace rc.core
                         {
                             while (_position < _input.Length &&
                                                             !(_input.Substring(_position).StartsWith("\\n") ||
-                                                            _input.Substring(_position).StartsWith("\\r") ||
-                                                            _input.Substring(_position).StartsWith("\r") ||
-                                                            _input.Substring(_position).StartsWith("\n")))
+                                                            _input.Substring(_position).StartsWith("\\r")))
                             {
                                 _position++;
                             }
@@ -162,6 +172,9 @@ namespace rc.core
 
                 }
             }
+
+            // Add EOF token
+            _tokens.Add(new Token(TokenType.EOF, "END OF FILE"));
 
             return _tokens;
         }
