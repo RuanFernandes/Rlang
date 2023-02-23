@@ -233,7 +233,7 @@ namespace rc.core
                 {
                     var token = new Token(tokenType.Value, tokenType.Key);
 
-                    // Double slash comment
+                    // Double slash comment (checks if its operator divide because its also an /, so i have to check if its followed by another /)
                     if (tokenType.Value == TokenType.Operator_Divide && _input.Substring(_position + 1).StartsWith("/"))
                     {
                         _position += 2;
