@@ -19,6 +19,7 @@ namespace rc.core
     {
 
         private readonly string _input;
+        private KeyValuePair<string, TokenType> _lastToken;
         private readonly List<Token> _tokens;
         private int _position;
 
@@ -35,10 +36,9 @@ namespace rc.core
             {"break", TokenType.Keyword_Break},
             {"continue", TokenType.Keyword_Continue},
             {"function", TokenType.Keyword_Function},
-            {"var", TokenType.Keyword_Var},
-            {"true", TokenType.Keyword_True},
-            {"false", TokenType.Keyword_False},
-            {"null", TokenType.Keyword_Null},
+            {"true", TokenType.Type_Boolean},
+            {"false", TokenType.Type_Boolean},
+            {"null", TokenType.Type_Null},
             {"undefined", TokenType.Keyword_Undefined},
 
             {"+", TokenType.Operator_Plus},
@@ -93,10 +93,44 @@ namespace rc.core
                 if (token != null)
                 {
                     _tokens.Add(token);
+                    _lastToken = new KeyValuePair<string, TokenType>(token.Value, token.Type);
                 }
                 else
                 {
-                    throw new Exception("Unknown token");
+                    // Find var definitions
+                    if (_lastToken.Value == TokenType.Variable_Type)
+                    {
+                        string varIdentifier = "";
+                        while (_position < _input.Length && char.IsLetterOrDigit(_input[_position]))
+                        {
+                            varIdentifier += _input[_position];
+
+                            _position++;
+                        }
+
+                        _tokens.Add(new Token(TokenType.Variable_Identifier, varIdentifier));
+                        _lastToken = new KeyValuePair<string, TokenType>(varIdentifier, TokenType.Variable_Identifier);
+                    }
+                    // Find Numbers
+                    else if (char.IsDigit(_input[_position]))
+                    {
+                        string number = "";
+                        while (_position < _input.Length && char.IsDigit(_input[_position]))
+                        {
+                            number += _input[_position];
+
+                            _position++;
+                        }
+
+                        _tokens.Add(new Token(TokenType.Type_Number, number));
+                        _lastToken = new KeyValuePair<string, TokenType>(number, TokenType.Type_Number);
+                    }
+                    // Unknown token
+                    else
+                    {
+                        throw new Exception("Unknown token" + _input.Substring(_position) + " at position " + _position + " in input " + _input + "!");
+                    }
+
                 }
             }
 
