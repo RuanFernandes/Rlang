@@ -11,7 +11,7 @@ namespace rc.core
         {
             _lexer = new Lexer();
 
-            _lexer.setInput("if (true) {   test()   }");
+            _lexer.setInput("if (true) {   test(\"Hello\", 123)   }");
             var data = _lexer.Tokenize();
 
             foreach (var token in data)

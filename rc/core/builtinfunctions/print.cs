@@ -1,6 +1,6 @@
 namespace rc.core.builtinfunctions
 {
-    public class print : Function
+    public class PrintL : Function
     {
         public override object? Execute(string[] args)
         {
@@ -10,7 +10,7 @@ namespace rc.core.builtinfunctions
             return null;
         }
 
-        public print(string[] argvs) : base("print", "Prints the arguments to the console", argvs, new string[] { "print(Hello World)", "prints Hello World!" })
+        public PrintL(string[] argvs) : base("print", "Prints the arguments to the console", argvs, new string[] { "print(Hello World)", "prints Hello World!" })
         {
         }
     }

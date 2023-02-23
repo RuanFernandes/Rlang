@@ -80,6 +80,8 @@ namespace rc.core
             _input = input;
             _tokens = new List<Token>();
             _position = 0;
+
+            Console.WriteLine("Lexer input: " + _input + "\n\n");
         }
 
         public Lexer()
@@ -88,7 +90,7 @@ namespace rc.core
             _tokens = new List<Token>();
             _position = 0;
 
-            Console.WriteLine("Lexer created");
+            Console.WriteLine("Lexer created\n\n");
         }
 
         public Lexer(string input)
