@@ -64,6 +64,7 @@ namespace rc.core
             {"]", TokenType.Punctuation_CloseSquareBracket},
             {",", TokenType.Punctuation_Comma},
             {";", TokenType.Punctuation_Semicolon},
+            {".", TokenType.Punctuation_Dot},
 
             {"\"", TokenType.String_DoubleQuote},
             {"'", TokenType.String_SingleQuote},
@@ -97,9 +98,13 @@ namespace rc.core
                 else
                 {
                     // Find var definitions
-                    if (_lastToken.Value == TokenType.Variable_Type)
+                    if (_lastToken.Value == TokenType.Variable_Type
+                                                                && _lastToken.Value != TokenType.Type_Boolean
+                                                                && _lastToken.Value != TokenType.Type_Null
+                                                                && _lastToken.Value != TokenType.Type_Number)
                     {
                         string varIdentifier = "";
+
                         while (_position < _input.Length && char.IsLetterOrDigit(_input[_position]))
                         {
                             varIdentifier += _input[_position];

@@ -43,6 +43,7 @@ namespace rc.enums
         Punctuation_CloseSquareBracket,
         Punctuation_Comma,
         Punctuation_Semicolon,
+        Punctuation_Dot,
 
         // String
         String_DoubleQuote,
@@ -58,6 +59,6 @@ namespace rc.enums
         Type_Number,
         Type_String,
         Type_Boolean,
-        Type_Null,
+        Type_Null
     }
 }
