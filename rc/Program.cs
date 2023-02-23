@@ -7,9 +7,11 @@ namespace rc
     {
         static void Main(string[] args)
         {
-            string input = "this.a = 123;";
+            string input = "this.a = 1.23;";
 
             var lexer = new Lexer(input);
+
+            Console.WriteLine("Input: " + input + "\n");
 
             try
             {

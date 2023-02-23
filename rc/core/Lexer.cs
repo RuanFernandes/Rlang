@@ -17,7 +17,6 @@ namespace rc.core
     }
     public class Lexer
     {
-
         private readonly string _input;
         private KeyValuePair<string, TokenType> _lastToken;
         private readonly List<Token> _tokens;

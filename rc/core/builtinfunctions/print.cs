@@ -14,7 +14,6 @@ namespace rc.core.builtinfunctions
 
         public print(string[] argvs) : base("print", "Prints the arguments to the console", argvs, new string[] { "print(Hello World)", "prints Hello World!" })
         {
-
         }
     }
 }
