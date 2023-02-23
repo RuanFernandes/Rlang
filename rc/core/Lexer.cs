@@ -69,6 +69,9 @@ namespace rc.core
             {"'", TokenType.String_SingleQuote},
 
             {" ", TokenType.Other_Whitespace},
+            {"\\t", TokenType.Other_Whitespace},
+            {"\\r", TokenType.Other_Whitespace},
+            {"\\n", TokenType.Other_Newline},
             {"\t", TokenType.Other_Whitespace},
             {"\r", TokenType.Other_Whitespace},
             {"\n", TokenType.Other_Newline},
@@ -91,8 +94,28 @@ namespace rc.core
                 var token = GetNextToken();
                 if (token != null)
                 {
-                    _tokens.Add(token);
-                    _lastToken = new KeyValuePair<string, TokenType>(token.Value, token.Type);
+                    // Skip comments
+                    if (token.Type == TokenType.Other_Comment)
+                    {
+                        if (token.Value == "//")
+                        {
+                            while (_position < _input.Length &&
+                                                            !(_input.Substring(_position).StartsWith("\\n") ||
+                                                            _input.Substring(_position).StartsWith("\\r") ||
+                                                            _input.Substring(_position).StartsWith("\r") ||
+                                                            _input.Substring(_position).StartsWith("\n")))
+                            {
+                                _position++;
+                            }
+                        }
+                        _tokens.Add(token);
+                    }
+                    else
+                    {
+                        _tokens.Add(token);
+                        _lastToken = new KeyValuePair<string, TokenType>(token.Value, token.Type);
+                    }
+
                 }
                 else
                 {
@@ -156,6 +179,14 @@ namespace rc.core
                 if (_input.Substring(_position).StartsWith(tokenType.Key))
                 {
                     var token = new Token(tokenType.Value, tokenType.Key);
+
+                    // Double slash comment
+                    if (tokenType.Value == TokenType.Operator_Divide && _input.Substring(_position + 1).StartsWith("/"))
+                    {
+                        _position += 2;
+                        return new Token(TokenType.Other_Comment, "//");
+                    }
+
                     _position += tokenType.Key.Length;
                     return token;
                 }

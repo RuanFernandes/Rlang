@@ -7,7 +7,7 @@ namespace rc
     {
         static void Main(string[] args)
         {
-            string input = "this.a = 1.23;";
+            string input = "this.a = 1.23; // test \\n temp.hello = 1.23; // test";
 
             var lexer = new Lexer(input);
 
