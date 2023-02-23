@@ -1,4 +1,5 @@
 using System;
+using rc.core.builtinfunctions;
 
 namespace rc.core
 {
@@ -6,15 +7,17 @@ namespace rc.core
     {
 
         private Lexer _lexer;
+        private FunctionMap _functionMap;
 
         public Interpreter()
         {
+            _functionMap = new FunctionMap();
+            _functionMap.AddFunction(new PrintL());
+
             _lexer = new Lexer();
+            _lexer.setInput("if (true) {   PrintL(\"Hello\", 123)   }");
 
-            _lexer.setInput("if (true) {   test(\"Hello\", 123)   }");
-            var data = _lexer.Tokenize();
-
-            foreach (var token in data)
+            foreach (var token in _lexer.Tokenize())
             {
                 Console.WriteLine(token.Type + " " + token.Value);
             }

@@ -4,9 +4,17 @@ namespace rc.core
     {
         private Dictionary<string, Function> _functions = new Dictionary<string, Function>();
 
+        public Function getFunction(string name)
+        {
+            if (!_functions.ContainsKey(name))
+                throw new Exception("Function " + name + " not found");
+
+            return _functions[name];
+        }
+
         public void AddFunction(Function function)
         {
-            _functions.Add(function.Name, function);
+            _functions.Add(function.getName(), function);
         }
 
         public object? ExecuteFunction(string name, string[] args)
@@ -32,13 +40,8 @@ namespace rc.core
 
             var function = _functions[name];
 
-            Console.WriteLine(function.Name);
+            Console.WriteLine(function.getName());
             Console.WriteLine(function.Description);
-            Console.WriteLine("Parameters:");
-            foreach (var parameter in function.Parameters)
-            {
-                Console.WriteLine(parameter);
-            }
             Console.WriteLine("Examples:");
             foreach (var example in function.Examples)
             {
@@ -50,33 +53,21 @@ namespace rc.core
 
     public abstract class Function
     {
-        public string Name
-        {
-            get
-            {
-                return this.Name.ToLower();
-            }
-            set
-            {
-                if (!char.IsLetter(value[0]))
-                    throw new Exception("Function name must start with a letter");
+        private string Name { get; set; }
+        public string Description { get; set; }
+        public string[] Examples { get; set; }
 
-                this.Name = value;
-            }
-        }
-        public string Description { get { return Description; } set { return; } }
-        public string[] Parameters { get { return Parameters; } set { return; } }
-        public string[] Examples { get { return Examples; } set { return; } }
+        public string getName() { return Name; }
+
         public virtual object? Execute(string[] args)
         {
             return "Not implemented";
         }
 
-        public Function(string name, string description, string[] parameters, string[] examples)
+        public Function(string name, string description, string[] examples)
         {
             Name = name;
             Description = description;
-            Parameters = parameters;
             Examples = examples;
         }
     }
