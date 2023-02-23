@@ -19,7 +19,7 @@ namespace rc.core
 
             foreach (var token in _lexer.Tokenize())
             {
-                Console.WriteLine(token.Type + " " + token.Value);
+                Console.WriteLine(token.Type + ": \"" + token.Value + "\"");
             }
         }
 

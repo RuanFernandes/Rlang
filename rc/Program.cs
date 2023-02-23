@@ -10,7 +10,7 @@ namespace rc
 
             var interpreter = new Interpreter();
 
-            Console.ReadKey();
+            // Console.ReadKey();
         }
     }
 }
