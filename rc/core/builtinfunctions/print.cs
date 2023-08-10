@@ -10,7 +10,7 @@ namespace rc.core.builtinfunctions
             return null;
         }
 
-        public PrintL() : base("print", "Prints the arguments to the console", new string[] { "print(string)", "prints String!" })
+        public PrintL() : base("PrintL", "Prints the arguments to the console", new string[] { "print(string)", "prints String!" })
         {
         }
     }
